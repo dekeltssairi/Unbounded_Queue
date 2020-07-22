@@ -60,7 +60,7 @@ public class ConcurrentQueue implements Queue {
                 }
             }
         }
-        catch (Exception ex){   // if empty
+        catch (NullPointerException ex){   // if empty
             return null;
         }
     }
