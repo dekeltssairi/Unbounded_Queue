@@ -1,19 +1,11 @@
-package Unbound_Queue;
+package SECTION_1;
+
+
+import INTERFACES.Queue;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ConcurrentQueue implements Queue {
-
-
-    private class Node {
-        Integer val;
-        AtomicReference<Node> next;
-
-        public Node(Integer value) {
-            val = value;
-            next = new AtomicReference<Node>(null);
-        }
-    }
 
     Node dummy = new Node(null);
     private AtomicReference<Node> head = new AtomicReference<Node>(dummy);
@@ -41,8 +33,6 @@ public class ConcurrentQueue implements Queue {
     @Override
     public Integer Deq() {
         try {
-
-
             while (true) {
                 Node first = head.get();
                 Node last = tail.get();
@@ -65,11 +55,13 @@ public class ConcurrentQueue implements Queue {
         }
     }
 
-    public void print() {
-        AtomicReference<Node> curr = head.get().next;
-        while (curr != null){
-            System.out.println(curr.get().val);
-            curr = curr.get().next;
+    private class Node {
+        Integer val;
+        AtomicReference<Node> next;
+
+        public Node(Integer value) {
+            val = value;
+            next = new AtomicReference<Node>(null);
         }
     }
 }

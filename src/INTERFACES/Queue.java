@@ -1,4 +1,4 @@
-package Unbound_Queue;
+package INTERFACES;
 
 public interface Queue {
 

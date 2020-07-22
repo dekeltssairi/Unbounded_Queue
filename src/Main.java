@@ -1,4 +1,4 @@
-import Unbound_Queue.ConcurrentQueue;
+import SECTION_1.ConcurrentQueue;
 
 public class Main {
 
@@ -10,11 +10,11 @@ public class Main {
         concurrentQueue.Enq(4);
 
 //        concurrentQueue.print();
-        int val = concurrentQueue.Deq();
-        concurrentQueue.Deq();
-        concurrentQueue.Deq();
-        concurrentQueue.Deq();
-        concurrentQueue.Deq();
+        Integer val = concurrentQueue.Deq();
+        val = concurrentQueue.Deq();
+        val = concurrentQueue.Deq();
+        val = concurrentQueue.Deq();
+        val = concurrentQueue.Deq();
 //        System.out.println(val);
 //        concurrentQueue.print();
     }
