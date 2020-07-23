@@ -55,6 +55,16 @@ public class ConcurrentQueue implements Queue {
         }
     }
 
+    public int Count() {
+        AtomicReference<Node> curr = head.get().next;
+        int count = 0;
+        while (curr.get() != null){
+            count++;
+            curr= curr.get().next;
+        }
+        return count;
+    }
+
     private class Node {
         Integer val;
         AtomicReference<Node> next;

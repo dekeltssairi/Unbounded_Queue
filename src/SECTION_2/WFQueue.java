@@ -1,6 +1,7 @@
 package SECTION_2;
 
 import INTERFACES.Queue;
+import SECTION_1.ConcurrentQueue;
 import THREADS.ThreadID;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -8,6 +9,16 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class WFQueue implements Queue {
+
+    public int Count() {
+        AtomicReference<Node> curr = head.get().next;
+        int count = 0;
+        while (curr.get() != null){
+            count++;
+            curr= curr.get().next;
+        }
+        return count;
+    }
 
     class Node {
         Integer value;
