@@ -1,11 +1,11 @@
-package SECTION_1;
+package SECTION_2;
 
 
 import INTERFACES.Queue;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ConcurrentQueue implements Queue {
+public class ConcurrentQueueHelp implements Queue {
 
     private final Node dummy = new Node(null);
     private final AtomicReference<Node> head = new AtomicReference<Node>(dummy);
@@ -13,14 +13,31 @@ public class ConcurrentQueue implements Queue {
 
     public void Enq(final Integer item) {
 
-        final Node  newNode = new Node(item);
-        boolean successToAdd;
-        boolean successToUpdateTail;
+        Node  newNode = new Node(item);
+        boolean success;
         do{
             Node curTail = tail.get();
-            successToAdd = curTail.next.compareAndSet(null, newNode);
-            successToUpdateTail = tail.compareAndSet(curTail, curTail.next.get());
-        }while (successToAdd && successToUpdateTail);
+            success = curTail.next.compareAndSet(null, newNode);
+            tail.compareAndSet(curTail, curTail.next.get());
+        }while (!success);
+//        final Node  newNode = new Node(item);
+//        Node curTail, residue;
+//        boolean stay = true;
+//        while (stay) {
+//            curTail = tail.get();
+//            residue = curTail.next.get();
+//
+//            if (curTail == tail.get()) {
+//                if (residue == null) {
+//                    if (curTail.next.compareAndSet(null, newNode)) {
+//                        tail.compareAndSet(curTail, newNode);
+//                        stay = false;
+//                    }
+//                } else {
+//                    tail.compareAndSet(curTail, residue);
+//                }
+//            }
+//        }
     }
 
 

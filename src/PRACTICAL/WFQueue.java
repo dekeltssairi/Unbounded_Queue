@@ -1,7 +1,6 @@
-package SECTION_2;
+package PRACTICAL;
 
 import INTERFACES.Queue;
-import SECTION_1.ConcurrentQueue;
 import THREADS.ThreadID;
 
 import java.util.concurrent.atomic.AtomicInteger;

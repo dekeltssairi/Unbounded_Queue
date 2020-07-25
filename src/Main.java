@@ -1,25 +1,10 @@
 import SECTION_1.ConcurrentQueue;
-import SECTION_2.WFQueue;
-
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
-            ConcurrentQueue concurrentQueue = new ConcurrentQueue();
-//        concurrentQueue.Enq(1);
-//        concurrentQueue.Enq(2);
-//        concurrentQueue.Enq(3);
-//        concurrentQueue.Enq(4);
-//
-//        int numOfElements = concurrentQueue.Count();
-//
-//        System.out.println("Thre are " + numOfElements);
-//
-//        Integer val = concurrentQueue.Deq();
-//        numOfElements = concurrentQueue.Count();
+    public static void main(String[] args) throws InterruptedException {
 
-
+        ConcurrentQueue concurrentQueue = new ConcurrentQueue();
 
         Thread t1 = new Thread(new Runnable() {
             @Override
@@ -44,6 +29,8 @@ public class Main {
 
         t1.join();
         t2.join();
+
+        int numOfElements = concurrentQueue.Count();
 //
 //        // waiting
 //
@@ -73,8 +60,6 @@ public class Main {
         t3.join();
         t4.join();
 
-
-        int numOfElements = concurrentQueue.Count();
         numOfElements = concurrentQueue.Count();
 
     }
