@@ -1,4 +1,12 @@
-package PRACTICAL;
+/*
+    WF Concurrent Queue - One of the most practical algorithm so far
+ */
+
+
+
+
+
+package OTHERS;
 
 import INTERFACES.Queue;
 import THREADS.ThreadID;
@@ -7,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
-public class WFQueue implements Queue {
+public class WFQueuePractical implements Queue {
 
     public int Count() {
         AtomicReference<Node> curr = head.get().next;
@@ -47,7 +55,7 @@ public class WFQueue implements Queue {
 
     AtomicReference<Node> head, tail;
     AtomicReferenceArray<OpDesc> state;
-    public WFQueue(int numOfThreads) {
+    public WFQueuePractical(int numOfThreads) {
 
         Node sentinel = new Node(-1, -1);
         head = new AtomicReference<Node>(sentinel);

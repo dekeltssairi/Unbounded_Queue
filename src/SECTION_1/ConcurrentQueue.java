@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ConcurrentQueue implements Queue {
 
     private final Node dummy = new Node(null);
-    private final AtomicReference<Node> head = new AtomicReference<Node>(dummy);
-    private final AtomicReference<Node> tail = new AtomicReference<Node>(dummy);
+    protected final AtomicReference<Node> head = new AtomicReference<Node>(dummy);
+    protected final AtomicReference<Node> tail = new AtomicReference<Node>(dummy);
 
     public void Enq(final Integer item) {
 
@@ -20,22 +20,27 @@ public class ConcurrentQueue implements Queue {
             Node curTail = tail.get();
             successToAdd = curTail.next.compareAndSet(null, newNode);
             successToUpdateTail = tail.compareAndSet(curTail, curTail.next.get());
-        }while (successToAdd && successToUpdateTail);
+        }while (!successToAdd /*|| !successToUpdateTail*/);
     }
 
 
     @Override
     public Integer Deq() {
-        final Node dummy = head.get();
-        Node oldHead;
-        Node newHead;
-        do {
-            oldHead = dummy.next.get();
-            if (oldHead == null)
-                return null;
-            newHead = oldHead.next.get();
-        } while (!head.get().next.compareAndSet(oldHead,newHead));
-        return oldHead.val;
+        try {
+            final Node dummy = head.get();
+            AtomicReference<Node> oldHead;
+            Node newHead;
+            do {
+                oldHead = dummy.next;
+                if (oldHead.get() == null)
+                    return null;
+                newHead = oldHead.get().next.get();
+            } while (!oldHead.compareAndSet(oldHead.get(),newHead));
+            return oldHead.get().val;
+        }catch (NullPointerException exn){
+            return null;
+        }
+
     }
 
     public int Count() {
@@ -48,9 +53,9 @@ public class ConcurrentQueue implements Queue {
         return count;
     }
 
-    private class Node {
-        final Integer val;
-        final AtomicReference<Node> next;
+    protected class Node {
+        public final Integer val;
+        public final AtomicReference<Node> next;
 
         public Node(Integer value) {
             val = value;
